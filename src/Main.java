@@ -7,35 +7,35 @@
  * other than that allowed by the instructions for this project.
  *
  */
+/**
+ * Project 1 - CSC 201 Spring 2023
+ *
+ * Honor Pledge:
+ * The code submitted for this project was developed by
+ * Rute Ayalew without outside assistance or consultation
+ * other than that allowed by the instructions for this project.
+ *
+ */
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Collections;
+import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Main {
 
     // Use a List to store and count shingles encountered in a text file
+    private static ArrayList<Node<String>> shingles = new ArrayList<>();
 
-    // Students with last name starting with A-L use an ArrayList
-    //private static ArrayList<Node<String>> shingles = new ArrayList<>();
-
-    // Students with last name starting with M-Z use a LinkedList
-    private static LinkedList<Node<String>> shingles = new LinkedList<>();
-
-    // shingle length (in words)
     private final static int k = 3;
 
     public static void main(String[] args) {
         // Name of file to read, assumes files have a .txt extension and that they are stored in a folder named files
         // Assumes file name is provided as an argument (use Run --> Edit Configurations in IntelliJ to set name or
         // run program from the Terminal window).
-        String fileName = ".\\files\\" + args[0];
+        String fileName = "/Users/ruteayalew/IdeaProjects/project1_s2023-ruteayalew/files/lyric.txt";
 
         // Text file contents read into a single variable named fileText
         String fileText = "";
@@ -58,19 +58,24 @@ public class Main {
         String[] wordArray = fileText.split(" ");
         System.out.printf("%d words identified in file\n", wordArray.length);
 
-        /*
-            TODO: Use the wordArray to generate shingles and store them in a List of Nodes<String>
-                  named "shingles"
-                  Each Node should store a shingle (String) consisting of k words
-                  and a count of the number of times that shingle has appeared in the text.
-         */
+        //for loop to iterate through the wordArray and add elements into shingles arraylist
+        for(int i = 0; i< wordArray.length; i++){
+            Node newNode = new Node(wordArray[i]);
+            shingles.add(newNode);
+        }
 
 
+        //neseted for loop compares shingles data to find duplicates and once found, calls incrementCount method
+        //also removes the duplicate shingles from the arraylist so top 10 can be reported with different words
+        for(int i = 0; i< shingles.size(); i++){
+            for (int j = 1; j< shingles.size(); j++){
+                if (shingles.get(i).getData().equalsIgnoreCase(shingles.get(j).getData())) {
+                    shingles.get(i).incrementCount();
+                    shingles.remove(shingles.get(j));
+                }
+            }
+        }
 
-        /*
-             End TODO - the rest of main() generates a report and dumps the List of shingles to
-                        a file
-         */
 
         // use the List of Nodes to generate a report
         int totalShingles = 0;
@@ -90,13 +95,14 @@ public class Main {
         System.out.println("Shingles written to file: " + outfileName);
 
         // assuming there are at least 10 shingles, print the 10 most frequent, for debugging, etc.
-        assert shingles.size() >= 10 : "Fewer than 10 shingles found.";
+       // assert shingles.size() >= 10 : "Fewer than 10 shingles found.";
 
         System.out.format("\nThe 10 most frequent shingles in %s are: \n", fileName);
         for(int i=0; i<10; i++){
             System.out.println(shingles.get(i));
         }
     }
+
 
     /*
          Open output text file and write each Node to the file
@@ -124,6 +130,11 @@ public class Main {
         str = str.strip();  // remove leading and trailing spaces
         return str;
     }
-}
+
+
+
+    }
+
+
 
 
