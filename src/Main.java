@@ -7,7 +7,7 @@
  * other than that allowed by the instructions for this project.
  *
  */
-/**
+/*
  * Project 1 - CSC 201 Spring 2023
  *
  * Honor Pledge:
@@ -64,8 +64,7 @@ public class Main {
             shingles.add(newNode);
         }
 
-
-        //neseted for loop compares shingles data to find duplicates and once found, calls incrementCount method
+        //nested for loop compares shingles data to find duplicates and once found, calls incrementCount method
         //also removes the duplicate shingles from the arraylist so top 10 can be reported with different words
         for(int i = 0; i< shingles.size(); i++){
             for (int j = 1; j< shingles.size(); j++){
