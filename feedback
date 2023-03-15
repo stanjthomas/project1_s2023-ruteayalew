@@ -1,0 +1,7 @@
+Finally found your code.
+
+There are some problems with it.
+1 - You didn't really create 3-shingles.  What you stored as a shingle was just one word.
+2 - You should not use "remove(j)" inside a for-loop as it will cause you to skip values since the later values "slide" down when you remove one.  If you're going to remove within a loop you need an iterator.
+ 
+ 80/100
